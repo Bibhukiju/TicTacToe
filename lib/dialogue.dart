@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tictactoe/main.dart';
 
-class dialogue extends StatelessWidget {
+class DiaLogue extends StatelessWidget {
   final title;
   final content;
   final VoidCallback callback;
   final actionText;
-  dialogue(this.title,this.content, this.callback,[this.actionText="Reset"]);
+  DiaLogue(this.title,this.content, this.callback,[this.actionText="Reset"]);
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -13,10 +14,13 @@ class dialogue extends StatelessWidget {
       content: Text(content),
       actions: <Widget>[
         FlatButton(
-          onPressed: callback,
-          color: Colors.white,
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (BuildContext context) => Navi())
+            );
+          },
           child: Text(actionText),
-        )
+        ),
       ],
     );
   }

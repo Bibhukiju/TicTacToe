@@ -9,5 +9,5 @@ class GameBoard
   Color bg;
   bool enabled;
 
-  GameBoard({this.id, this.text="", this.bg=Colors.grey, this.enabled=true});
+  GameBoard({this.id, this.text="", this.bg=Colors.red, this.enabled=true});
 }

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:tictactoe/dialogue.dart';
 import 'gameboard.dart';
 
-class Homepage extends StatefulWidget {
+class Homepage2 extends StatefulWidget {
   @override
-  _HomepageState createState() => _HomepageState();
+  _Homepage2State createState() => _Homepage2State();
 }
 
-class _HomepageState extends State<Homepage> {
+class _Homepage2State extends State<Homepage2> {
   List<GameBoard>buttonlist;
   var player1;
   var player2;
@@ -41,11 +41,11 @@ class _HomepageState extends State<Homepage> {
   {
     setState(() {
       if(activePlayer==1)
-        {
-          gb.text="X";
-          activePlayer= 2;
-          player1.add(gb.id);
-        }
+      {
+        gb.text="X";
+        activePlayer= 2;
+        player1.add(gb.id);
+      }
       else{
         gb.text="O";
         gb.bg=Color(0x000000);
@@ -129,26 +129,26 @@ class _HomepageState extends State<Homepage> {
       winner=2;
     }
     if(winner!=-1)
-      {
-        if(winner==1)
-          {
-            showDialog(context: context,
-            builder: (_)=>DiaLogue("Player 1 won","press reset button to restart again",resetgame)
-
-            );
-          }
-        else if(winner==2)
-          {
-            showDialog(context: context,
-                builder: (_)=>DiaLogue("Player 2 won","press reset button to restart again",resetgame));
-
-          }
-      }
-    else if(player1().length==5 && winner ==0)
+    {
+      if(winner==1)
       {
         showDialog(context: context,
-          builder: (_)=>DiaLogue("Game draw","press restart to restart again",resetgame ));
+            builder: (_)=>DiaLogue("Player 1 won","press reset button to restart again",resetgame)
+
+        );
       }
+      else if(winner==2)
+      {
+        showDialog(context: context,
+            builder: (_)=>DiaLogue("Player 2 won","press reset button to restart again",resetgame));
+
+      }
+    }
+    else if(player1().length==5 && winner ==0)
+    {
+      showDialog(context: context,
+          builder: (_)=>DiaLogue("Game draw","press restart to restart again",resetgame ));
+    }
 
   }
   void resetgame()
@@ -163,70 +163,78 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                child: Center(
-                  child: Text("Tic-tac-Toe",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                  ),),
+        backgroundColor: Colors.grey.shade800,
+        appBar: AppBar(
+          title: Text("Tic-Tac-Toe",
+            style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+          backgroundColor: Colors.black12,
+          centerTitle: true,
+        ),
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: GridView.builder(
+                padding: EdgeInsets.fromLTRB(10, 10 0, 10, 0),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 1.0,
+                  mainAxisSpacing: 9,
+                  crossAxisSpacing: 9,
                 ),
-                padding: EdgeInsets.all(14.0),
-                height: 60,
-              ),
-              Expanded(
-                child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1.0,
-                      mainAxisSpacing: 4,
-                      crossAxisSpacing: 4,
-                    ),
-                    itemCount: buttonlist.length, itemBuilder: (context, i) =>
-                        Container(
-                          child: RaisedButton(onPressed: buttonlist[i].enabled ? () =>
-                              putmove(buttonlist[i]) : null,
-                            padding: EdgeInsets.all(0),
-                            child: Text(buttonlist[i].text,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize:80,
-                              color: Colors.black87,
-                            ),
-                            ),
-                          ),
-                        ),
-                ),
-              ),
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    SafeArea(
-                      child: Container(
-                        height: 80,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(70),
-                        ),
-                        child: RaisedButton(
-                          onPressed: () {
-                            resetgame();
-                           }
-                          ,child: Text("Restart"),
+                itemCount: buttonlist.length, itemBuilder: (context, i) =>
+                  Container(
+                    child: RaisedButton(onPressed: buttonlist[i].enabled ? () =>
+                        putmove(buttonlist[i]) : null,
+
+                      padding: EdgeInsets.all(10),
+                      child: Text(buttonlist[i].text,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize:80,
+                            color: Colors.white
                         ),
                       ),
+                      color: Colors.black,
                     ),
-                  ],
-                ),
-              )
-            ],
-          ),
+                  ),
+              ),
+            ),
+            Container(
+              height: 80,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  SafeArea(
+                    child: Container(
+                      height: 80,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(70),
+                      ),
+                      child: RaisedButton(
+                        color: Colors.black12,
+                        onPressed: () {
+                          resetgame();
+                        }
+                        ,child: Text("Restart",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30
+                        ),
 
+                      ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
       debugShowCheckedModeBanner: false,
     );
